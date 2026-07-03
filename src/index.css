@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 @theme {
-  --color-warm-paper: #F7F7F5;
+  --color-warm-paper: #f7f7f5;
   --color-warm-black: #181818;
 }
 
