@@ -1,0 +1,14 @@
+@import "tailwindcss";
+
+@theme {
+  --color-warm-paper: #F7F7F5;
+  --color-warm-black: #181818;
+}
+
+body {
+  background-color: var(--color-warm-paper);
+  color: var(--color-warm-black);
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
