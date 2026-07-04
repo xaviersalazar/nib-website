@@ -1,16 +1,55 @@
-# React + Vite
+# Nib — Website
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+The marketing landing page for [**Nib**](https://nibapp.net), a calm, premium curiosity engine for iOS that delivers one fascinating thing every day.
 
-Currently, two official plugins are available:
+> One fascinating thing. Every day. — Come for one fact. Stay for five.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+This repo is the single-page site served at **[nibapp.net](https://nibapp.net)**. It introduces the app, shows a sample fact card, and links to the App Store. The iOS app itself lives in a separate repository.
 
-## React Compiler
+## Tech stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React 19** + **Vite** — single-page app
+- **Tailwind CSS 4** (via `@tailwindcss/vite`) — styling
+- **Framer Motion** — entrance and ambient animations
+- **lucide-react** — icons
+- **Oxlint** — linting
 
-## Expanding the Oxlint configuration
+## Getting started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+```bash
+npm install
+npm run dev      # start the Vite dev server
+```
+
+Other scripts:
+
+```bash
+npm run build    # production build to dist/
+npm run preview  # preview the production build locally
+npm run lint     # run Oxlint
+```
+
+## Project structure
+
+```
+public/
+  CNAME          # custom domain (nibapp.net)
+  favicon.svg
+  icons.svg
+src/
+  App.jsx        # the entire landing page (masthead, fact card, CTA, footer)
+  main.jsx       # React entry point
+  index.css      # Tailwind + global styles
+  assets/        # hero image and misc assets
+index.html
+vite.config.js
+```
+
+The whole page is a single component in `src/App.jsx` — a centered masthead, an animated ambient background, a sample `FactCard`, and a "Download on the App Store" call to action.
+
+## Deployment
+
+Deploys automatically to **GitHub Pages** on every push to `main` via
+[`.github/workflows/deploy.yml`](.github/workflows/deploy.yml). The workflow runs
+`npm ci && npm run build` and publishes the `dist/` output. The custom domain
+`nibapp.net` is configured through `public/CNAME`.

@@ -2,6 +2,42 @@ import React from "react";
 import { motion } from "framer-motion";
 import { Download, Microscope } from "lucide-react";
 
+// The Nib brand mark, ported from the app's onboarding screen (NibLogoMark):
+// a four-point sparkle star inside a hairline ring, encircled by a dashed
+// "orbit" that drifts slowly (360° over 44s), rendered in ink so it sits on
+// the light masthead the same way it does in the app.
+const NibLogoMark = () => (
+  <svg
+    viewBox="0 0 100 100"
+    fill="none"
+    aria-hidden="true"
+    className="w-10 h-10 sm:w-11 sm:h-11 lg:w-14 lg:h-14 text-black"
+  >
+    {/* Outer dashed orbit — drifts slowly, matching the app mark */}
+    <motion.circle
+      cx="50"
+      cy="50"
+      r="49.1"
+      stroke="currentColor"
+      strokeWidth="1.8"
+      strokeLinecap="round"
+      strokeDasharray="0.6 5.2"
+      style={{ transformBox: "fill-box", transformOrigin: "center" }}
+      animate={{ rotate: 360 }}
+      transition={{ duration: 44, ease: "linear", repeat: Infinity }}
+    />
+
+    {/* Inner hairline ring */}
+    <circle cx="50" cy="50" r="33.8" stroke="currentColor" strokeWidth="1.4" />
+
+    {/* Four-point sparkle star */}
+    <path
+      d="M 50 29 Q 53.54 46.46 71 50 Q 53.54 53.54 50 71 Q 46.46 53.54 29 50 Q 46.46 46.46 50 29 Z"
+      fill="currentColor"
+    />
+  </svg>
+);
+
 const FactCard = () => {
   return (
     <motion.div
@@ -82,13 +118,26 @@ function App() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
         >
-          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-serif tracking-tight text-black mb-1 sm:mb-2">
+          {/* App icon — cascades into place with the same spring as onboarding */}
+          <motion.div
+            className="mb-4 sm:mb-5"
+            initial={{ opacity: 0, y: 18, scale: 0.9 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            transition={{ type: "spring", duration: 0.6, bounce: 0.15, delay: 0.1 }}
+          >
+            <NibLogoMark />
+          </motion.div>
+
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-serif tracking-tight text-black mb-2 sm:mb-3">
             Nib
           </h1>
-          <div className="flex items-center gap-2 sm:gap-4 text-[9px] sm:text-xs lg:text-sm tracking-widest text-black/40 uppercase">
-            <span>Today I Learned</span>
-          </div>
-          <div className="w-8 sm:w-12 h-px bg-black/10 mt-3 sm:mt-4"></div>
+
+          {/* Accent rule — a short solid ink capsule, as in onboarding */}
+          <div className="w-11 h-1 rounded-full bg-black mb-2 sm:mb-3"></div>
+
+          <p className="font-serif italic text-sm sm:text-base lg:text-lg text-black/60">
+            Feed your curiosity
+          </p>
         </motion.header>
 
         {/* Main Content */}
@@ -101,20 +150,12 @@ function App() {
           >
             <motion.h2
               variants={itemVariants}
-              className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-serif text-black leading-tight tracking-tight mb-2 sm:mb-3"
+              className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-serif text-black leading-tight tracking-tight mb-6 sm:mb-8"
             >
               One fascinating thing.
               <br />
               Every day.
             </motion.h2>
-
-            <motion.p
-              variants={itemVariants}
-              className="text-xs sm:text-sm md:text-base text-black/60 mb-6 sm:mb-8 max-w-[260px] sm:max-w-sm lg:max-w-md leading-relaxed"
-            >
-              A calm, premium curiosity engine. Come for one fact. Stay for
-              five.
-            </motion.p>
 
             <motion.div
               variants={itemVariants}
