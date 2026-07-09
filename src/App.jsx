@@ -254,7 +254,7 @@ function App() {
               variants={itemVariants}
               className="text-3xl sm:text-4xl md:text-5xl lg:text-5xl xl:text-6xl font-serif text-black leading-tight tracking-tight mb-6 sm:mb-8"
             >
-              One fascinating thing.
+              Something new.
               <br />
               Every day.
             </motion.h2>

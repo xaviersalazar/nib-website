@@ -1,8 +1,8 @@
 # Nib — Website
 
-The marketing landing page for [**Nib**](https://nibapp.net), a calm, premium curiosity engine for iOS that delivers one fascinating thing every day.
+The marketing landing page for [**Nib**](https://nibapp.net), a calm, premium curiosity engine for iOS that delivers something new every day.
 
-> One fascinating thing. Every day. — Come for one fact. Stay for five.
+> Something new. Every day. — Come for one fact. Stay for five.
 
 This repo is the single-page site served at **[nibapp.net](https://nibapp.net)**. It introduces the app, shows a sample fact card, and links to the App Store. The iOS app itself lives in a separate repository.
 
