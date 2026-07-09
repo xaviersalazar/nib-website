@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Download, Microscope } from "lucide-react";
+import { Download, Orbit, Landmark, Brain } from "lucide-react";
 
 // The Nib brand mark, ported from the app's onboarding screen (NibLogoMark):
 // a four-point sparkle star inside a hairline ring, encircled by a dashed
@@ -38,35 +38,122 @@ const NibLogoMark = () => (
   </svg>
 );
 
-const FactCard = () => {
+// A short, punchy fact per topic — pulled from the Nib app's facts.json and
+// paired with that topic's tone from the app's palette, so the card's accent
+// shifts as it cycles (echoing the ambient aura behind the page).
+const FACTS = [
+  {
+    category: "Space",
+    Icon: Orbit,
+    color: "#6465A8", // dusty indigo
+    headline: "Venus is hotter than Mercury.",
+    body: "Mercury sits closer to the Sun — but Venus is hot enough to melt lead.",
+  },
+  {
+    category: "History",
+    Icon: Landmark,
+    color: "#B8945A", // warm amber
+    headline: "Viking helmets had no horns.",
+    body: "Those iconic horns? Vikings never actually wore them.",
+  },
+  {
+    category: "Psychology",
+    Icon: Brain,
+    color: "#7878C0", // lavender
+    headline: "Your name grabs your brain.",
+    body: "You'll catch your name across a noisy room — the “cocktail party effect.”",
+  },
+];
+
+const FactCarousel = () => {
+  const [index, setIndex] = React.useState(0);
+  const [paused, setPaused] = React.useState(false);
+
+  // Advance every ~4.2s; hovering the card pauses the cycle so it can be read.
+  React.useEffect(() => {
+    if (paused) return;
+    const t = setInterval(() => {
+      setIndex((prev) => (prev + 1) % FACTS.length);
+    }, 4200);
+    return () => clearInterval(t);
+  }, [paused]);
+
   return (
-    <motion.div
-      className="bg-white rounded-[20px] p-5 max-w-[280px] sm:max-w-[320px] w-full mx-auto relative text-left shadow-sm"
-      whileHover={{ y: -4, transition: { duration: 0.6, ease: "easeOut" } }}
+    <div
+      className="w-full max-w-[280px] sm:max-w-[320px] mx-auto"
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
     >
-      <div className="mb-2 sm:mb-3">
-        <Microscope
-          className="w-5 h-5 sm:w-6 sm:h-6 text-[#3B66D8]"
-          strokeWidth={1.5}
-        />
+      {/* Every card shares one grid cell, so the container is sized by the
+          tallest fact and never changes height — nothing on the page shifts as
+          facts cross-fade. */}
+      <div className="grid">
+        {FACTS.map((fact, i) => {
+          const Icon = fact.Icon;
+          const active = i === index;
+          return (
+            <motion.div
+              key={fact.headline}
+              aria-hidden={!active}
+              style={{ gridArea: "1 / 1", pointerEvents: active ? "auto" : "none" }}
+              className="bg-white rounded-[20px] p-5 text-left shadow-sm"
+              initial={false}
+              // A soft "focus-pull" cross-fade: the outgoing fact blurs and
+              // eases back while the incoming one sharpens into place.
+              animate={{
+                opacity: active ? 1 : 0,
+                scale: active ? 1 : 0.96,
+                filter: active ? "blur(0px)" : "blur(6px)",
+              }}
+              transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
+              whileHover={active ? { y: -4, transition: { duration: 0.5, ease: "easeOut" } } : undefined}
+            >
+              <div className="mb-2 sm:mb-3">
+                <Icon
+                  className="w-5 h-5 sm:w-6 sm:h-6"
+                  style={{ color: fact.color }}
+                  strokeWidth={1.5}
+                />
+              </div>
+
+              <div
+                className="flex items-center gap-1.5 mb-1.5 sm:mb-2 text-[9px] sm:text-[10px] font-bold tracking-widest uppercase"
+                style={{ color: fact.color }}
+              >
+                <span className="text-[12px] leading-none">•</span>
+                <span>{fact.category}</span>
+              </div>
+
+              <h2 className="text-base sm:text-lg font-serif text-black leading-tight mb-2 sm:mb-3 tracking-tight font-bold">
+                {fact.headline}
+              </h2>
+
+              <p className="text-black/70 text-[11px] sm:text-xs leading-relaxed">
+                {fact.body}
+              </p>
+            </motion.div>
+          );
+        })}
       </div>
 
-      <div className="flex items-center gap-1.5 mb-1.5 sm:mb-2 text-[#3B66D8] text-[9px] sm:text-[10px] font-bold tracking-widest uppercase">
-        <span className="text-[12px] leading-none">•</span>
-        <span>Biology</span>
+      {/* Progress dots — the active one widens into a capsule tinted with the
+          current topic's tone. */}
+      <div className="flex items-center justify-center gap-1.5 mt-4">
+        {FACTS.map((fact, i) => (
+          <button
+            key={fact.category}
+            type="button"
+            onClick={() => setIndex(i)}
+            aria-label={`Show ${fact.category} fact`}
+            className="h-1.5 rounded-full transition-all duration-500 ease-out cursor-pointer"
+            style={{
+              width: i === index ? 18 : 6,
+              backgroundColor: i === index ? fact.color : "rgba(0,0,0,0.15)",
+            }}
+          />
+        ))}
       </div>
-
-      <h2 className="text-base sm:text-lg font-serif text-black leading-tight mb-2 sm:mb-3 tracking-tight font-bold">
-        Octopuses have three hearts.
-      </h2>
-
-      <p className="text-black/70 text-[11px] sm:text-xs leading-relaxed">
-        Two hearts pump blood exclusively to the gills, while a larger systemic
-        heart circulates it to the rest of the body. Interestingly, the systemic
-        heart stops beating when an octopus swims, which is why they prefer
-        crawling.
-      </p>
-    </motion.div>
+    </div>
   );
 };
 
@@ -176,7 +263,7 @@ function App() {
               variants={itemVariants}
               className="w-full flex justify-center mb-5 sm:mb-6 lg:mb-8"
             >
-              <FactCard />
+              <FactCarousel />
             </motion.div>
 
             <motion.button
