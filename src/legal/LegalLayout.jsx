@@ -17,7 +17,9 @@ export default function LegalLayout({ title, lastUpdated, children }) {
           <h1 className="font-serif text-3xl sm:text-4xl tracking-tight leading-[1.1] mb-3">
             {title}
           </h1>
-          <p className="text-black/45 text-sm">Last updated {lastUpdated}</p>
+          {lastUpdated && (
+            <p className="text-black/45 text-sm">Last updated {lastUpdated}</p>
+          )}
         </header>
 
         <main>{children}</main>

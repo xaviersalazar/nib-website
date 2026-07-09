@@ -308,6 +308,15 @@ function App() {
           >
             Terms
           </a>
+          <span className="pointer-events-none text-black/20" aria-hidden="true">
+            ·
+          </span>
+          <a
+            href="/support"
+            className="pointer-events-auto hover:text-black/60 transition-colors"
+          >
+            Support
+          </a>
         </div>
       </motion.footer>
     </div>
