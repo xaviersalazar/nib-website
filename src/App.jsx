@@ -281,12 +281,34 @@ function App() {
 
       {/* Absolute Footer */}
       <motion.footer
-        className="absolute bottom-4 sm:bottom-6 left-0 right-0 w-full text-center z-20 text-[9px] sm:text-[10px] lg:text-xs text-black/30 pointer-events-none"
+        className="absolute bottom-4 sm:bottom-6 left-0 right-0 w-full z-20 text-[9px] sm:text-[10px] lg:text-xs text-black/30"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 1, delay: 1 }}
       >
-        © {new Date().getFullYear()} Nib. All rights reserved.
+        <div className="flex items-center justify-center gap-2 sm:gap-3">
+          <span className="pointer-events-none">
+            © {new Date().getFullYear()} Nib
+          </span>
+          <span className="pointer-events-none text-black/20" aria-hidden="true">
+            ·
+          </span>
+          <a
+            href="/privacy"
+            className="pointer-events-auto hover:text-black/60 transition-colors"
+          >
+            Privacy
+          </a>
+          <span className="pointer-events-none text-black/20" aria-hidden="true">
+            ·
+          </span>
+          <a
+            href="/terms"
+            className="pointer-events-auto hover:text-black/60 transition-colors"
+          >
+            Terms
+          </a>
+        </div>
       </motion.footer>
     </div>
   );

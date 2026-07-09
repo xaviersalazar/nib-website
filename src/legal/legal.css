@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+@theme {
+  --color-warm-paper: #f7f7f5;
+  --color-warm-black: #181818;
+}
+
+/* Legal pages are long-form and must scroll — unlike the single-screen
+   landing page, we do NOT lock body overflow here. */
+html,
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--color-warm-paper);
+  color: var(--color-warm-black);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
