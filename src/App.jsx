@@ -94,18 +94,33 @@ function App() {
   return (
     <div className="h-[100dvh] w-full flex flex-col relative font-sans overflow-hidden bg-[#F7F7F5]">
       <motion.div
-        className="absolute top-1/2 left-1/2 w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] lg:w-[700px] lg:h-[700px] rounded-full bg-[#3B66D8] blur-[80px] sm:blur-[120px] pointer-events-none"
-        initial={{ x: "-50%", y: "-50%" }}
+        className="absolute top-1/2 left-1/2 w-[300px] h-[300px] sm:w-[500px] sm:h-[500px] lg:w-[700px] lg:h-[700px] rounded-full blur-[80px] sm:blur-[120px] pointer-events-none"
+        initial={{ x: "-50%", y: "-50%", backgroundColor: "#6465A8" }}
         animate={{
           scale: [1, 1.15, 0.9, 1],
           x: ["-50%", "-45%", "-55%", "-50%"],
           y: ["-50%", "-55%", "-45%", "-50%"],
-          opacity: [0.08, 0.15, 0.1, 0.08],
+          opacity: [0.3, 0.45, 0.35, 0.3],
+          // Cross-fade through Nib's onboarding topic tones — the same curated
+          // path used by OnboardingAura in the app: cosmos, deep ocean, warm
+          // history, lavender mind, terracotta food, violet music.
+          backgroundColor: [
+            "#6465A8", // Space — dusty indigo
+            "#489090", // Ocean Life — seafoam teal
+            "#B8945A", // History — warm amber
+            "#7878C0", // Psychology — lavender
+            "#B87850", // Food — terracotta
+            "#8868B8", // Music — muted purple
+            "#6465A8", // back to Space for a seamless loop
+          ],
         }}
         transition={{
-          duration: 12,
-          repeat: Infinity,
-          ease: "easeInOut",
+          scale: { duration: 12, repeat: Infinity, ease: "easeInOut" },
+          x: { duration: 12, repeat: Infinity, ease: "easeInOut" },
+          y: { duration: 12, repeat: Infinity, ease: "easeInOut" },
+          opacity: { duration: 12, repeat: Infinity, ease: "easeInOut" },
+          // ~3.6s per tone, matching the app's onboarding cycle cadence.
+          backgroundColor: { duration: 21.6, repeat: Infinity, ease: "easeInOut" },
         }}
       />
 
