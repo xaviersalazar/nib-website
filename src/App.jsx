@@ -1,6 +1,6 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Download, Orbit, Landmark, Brain } from "lucide-react";
+import { Clock, Orbit, Landmark, Brain } from "lucide-react";
 
 // The Nib brand mark, ported from the app's onboarding screen (NibLogoMark):
 // a four-point sparkle star inside a hairline ring, encircled by a dashed
@@ -266,15 +266,13 @@ function App() {
               <FactCarousel />
             </motion.div>
 
-            <motion.button
+            <motion.p
               variants={itemVariants}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="flex items-center gap-2 bg-black text-white px-5 sm:px-6 py-2.5 sm:py-3 rounded-full font-medium text-[11px] sm:text-xs lg:text-sm transition-all shadow-sm hover:shadow-md cursor-pointer"
+              className="flex items-center gap-2 text-black/50 px-5 sm:px-6 py-2.5 sm:py-3 font-medium text-[11px] sm:text-xs lg:text-sm tracking-wide"
             >
-              <Download className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-4 lg:h-4" />
-              Download on the App Store
-            </motion.button>
+              <Clock className="w-3.5 h-3.5 sm:w-4 sm:h-4 lg:w-4 lg:h-4" />
+              Coming Soon to the App Store
+            </motion.p>
           </motion.div>
         </main>
       </div>
